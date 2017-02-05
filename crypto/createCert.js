@@ -3,9 +3,8 @@ var once = require('once');
 var nop = function () {};
 module.exports = function (ctx, cb) {
   ctx = ctx || {};
-  var bits = ctx.bits || 2048;
   var cmd = "openssl";
-  var args = ["genrsa", bits];
+  var args = ["req", "-key", "/dev/stdin", "-new", "-x509", "-days", "365", "-sha256", "-subj", "/C=TW/ST=Taiwan/L=Local/CN=localhost", "-out", "/dev/stdout"];
   var promise = new Promise(function (resolve, reject) {
     var next = once(cb || function (err, result) {
       if (err) {
@@ -15,18 +14,22 @@ module.exports = function (ctx, cb) {
     });
 
     var proc = child_process.spawn(cmd, args, {
-      stdio: ['ignore', 'pipe', 'ignore']
+      stdio: ['pipe', 'pipe', 'ignore'],
+      shell: true
     });
+
+    proc.stdin.write(ctx.key);
+    proc.stdin.destroy();
     var stack = [];
     proc.stdout.on("data", function (buf) {
       stack.push(buf);
     });
     proc.stdout.on("close", function () {
       var result = Buffer.concat(stack).toString();
-      if (result.indexOf("-----BEGIN RSA PRIVATE KEY-----") === -1) {
-        return next(new Error("openssl create rsa private key fail"));
+      if (result.indexOf("-----BEGIN CERTIFICATE-----") === -1) {
+        return next(new Error("openssl create public key fail"));
       }
-      ctx.key = result;
+      ctx.cert = result;
       next(null, ctx);
     });
   });

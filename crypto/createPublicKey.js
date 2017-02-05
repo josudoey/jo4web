@@ -18,18 +18,18 @@ module.exports = function (ctx, cb) {
       shell: false
     });
 
-    proc.stdin.write(ctx.private);
+    proc.stdin.write(ctx.key);
     proc.stdin.destroy();
     var stack = [];
     proc.stdout.on("data", function (buf) {
       stack.push(buf);
     });
     proc.stdout.on("close", function () {
-      var key = Buffer.concat(stack).toString();
-      if (key.indexOf("-----BEGIN PUBLIC KEY-----") === -1) {
+      var result = Buffer.concat(stack).toString();
+      if (result.indexOf("-----BEGIN PUBLIC KEY-----") === -1) {
         return next(new Error("openssl create public key fail"));
       }
-      ctx.public = key;
+      ctx.public = result;
       next(null, ctx);
     });
   });
