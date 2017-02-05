@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Joey Fang",
   "license": "ISC",
   "dependencies": {
     "co": "^4.6.0",
@@ -16,5 +16,9 @@
     "log4js": "^1.1.0",
     "nconf": "^0.8.4",
     "pug": "^2.0.0-beta11"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/josudoey/jo4web.git"
   }
 }
