@@ -1,6 +1,6 @@
 {
   "name": "jo4web",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -9,15 +9,12 @@
   "author": "Joey Fang",
   "license": "ISC",
   "dependencies": {
-    "consolidate": "^0.14.5",
     "http-auth": "^3.1.1",
     "koa": "^1.2.4",
     "koa-router": "^5.4.0",
     "log4koa": "^0.0.1",
-    "merge": "^1.2.0",
-    "nconf": "^0.8.4",
-    "once": "^1.4.0",
-    "pug": "^2.0.0-beta11"
+    "nconf4policy": "0.0.1",
+    "view4pug": "0.0.7"
   },
   "repository": {
     "type": "git",
