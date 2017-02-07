@@ -1,6 +1,6 @@
 {
   "name": "jo4web",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -14,6 +14,7 @@
     "koa-router": "^5.4.0",
     "log4koa": "^0.0.1",
     "nconf4policy": "0.0.1",
+    "node-forge": "^0.6.49",
     "view4pug": "0.0.7"
   },
   "repository": {
