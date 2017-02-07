@@ -3,8 +3,8 @@ var once = require('once');
 var nop = function () {};
 module.exports = function (ctx, cb) {
   ctx = ctx || {};
-  var cmd = "openssl";
-  var args = ["req", "-key", "/dev/stdin", "-new", "-x509", "-days", "365", "-sha256", "-subj", "/C=TW/ST=Taiwan/L=Local/CN=localhost", "-out", "/dev/stdout"];
+  var cmd = "sh";
+  var args = ["-c", "cat|openssl req -key /dev/stdin -new -x509 -days 365 -sha256 -subj /C=TW/ST=Taiwan/L=Local/CN=localhost -out /dev/stdout|cat"];
   var promise = new Promise(function (resolve, reject) {
     var next = once(cb || function (err, result) {
       if (err) {
@@ -14,8 +14,7 @@ module.exports = function (ctx, cb) {
     });
 
     var proc = child_process.spawn(cmd, args, {
-      stdio: ['pipe', 'pipe', 'ignore'],
-      shell: true
+      stdio: ['pipe', 'pipe', 'ignore']
     });
 
     proc.stdin.write(ctx.key);
@@ -27,7 +26,7 @@ module.exports = function (ctx, cb) {
     proc.stdout.on("close", function () {
       var result = Buffer.concat(stack).toString();
       if (result.indexOf("-----BEGIN CERTIFICATE-----") === -1) {
-        return next(new Error("openssl create public key fail"));
+        return next(new Error("openssl create cert fail"));
       }
       ctx.cert = result;
       next(null, ctx);

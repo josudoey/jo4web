@@ -3,8 +3,8 @@ var once = require('once');
 var nop = function () {};
 module.exports = function (ctx, cb) {
   ctx = ctx || {};
-  var cmd = "openssl";
-  var args = ["rsa", "-in", "/dev/stdin", "-pubout", "-out", "/dev/stdout"];
+  var cmd = "sh";
+  var args = ["-c", "cat|openssl rsa -in /dev/stdin -pubout -out /dev/stdout|cat"];
   var promise = new Promise(function (resolve, reject) {
     var next = once(cb || function (err, result) {
       if (err) {
