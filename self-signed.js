@@ -14,7 +14,7 @@ var gererateSerialNumber = function () {
 
 module.exports = function (ctx) {
   ctx = ctx || {};
-  var keyPair = forge.pki.rsa.generateKeyPair(512);
+  var keyPair = forge.pki.rsa.generateKeyPair(1024);
   var cert = forge.pki.createCertificate();
   cert.serialNumber = gererateSerialNumber();
   var now = Date.now();
