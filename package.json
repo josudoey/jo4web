@@ -1,6 +1,6 @@
 {
   "name": "jo4web",
-  "version": "0.0.21",
+  "version": "0.0.22",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -9,9 +9,11 @@
   "author": "Joey Fang",
   "license": "ISC",
   "dependencies": {
+    "cert4https": "0.0.0",
     "http-auth": "^3.1.1",
     "koa": "^1.2.4",
     "koa-router": "^5.4.0",
+    "koa4listen": "0.0.0",
     "log4koa": "^0.0.1",
     "nconf4policy": "0.0.1",
     "node-forge": "^0.6.49",
